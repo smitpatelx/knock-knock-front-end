@@ -1,0 +1,39 @@
+/* CSS HEX */
+// --terra-cotta: #ed6a5aff;
+// --pale-spring-bud: #f4f1bbff;
+// --opal: #9bc1bcff;
+// --cadet-blue: #5ca4a9ff;
+// --alabaster: #e6ebe0ff;
+
+/* CSS HSL */
+// --terra-cotta: hsla(7, 80%, 64%, 1);
+// --pale-spring-bud: hsla(57, 72%, 85%, 1);
+// --opal: hsla(172, 23%, 68%, 1);
+// --cadet-blue: hsla(184, 31%, 51%, 1);
+// --alabaster: hsla(87, 22%, 90%, 1);
+
+/* SCSS HEX */
+// $terra-cotta: #ed6a5aff;
+// $pale-spring-bud: #f4f1bbff;
+// $opal: #9bc1bcff;
+// $cadet-blue: #5ca4a9ff;
+// $alabaster: #e6ebe0ff;
+
+/* SCSS HSL */
+// $terra-cotta: hsla(7, 80%, 64%, 1);
+// $pale-spring-bud: hsla(57, 72%, 85%, 1);
+// $opal: hsla(172, 23%, 68%, 1);
+// $cadet-blue: hsla(184, 31%, 51%, 1);
+// $alabaster: hsla(87, 22%, 90%, 1);
+
+/* SCSS RGB */
+$terra-cotta: rgba(237, 106, 90, 1);
+$pale-spring-bud: rgba(244, 241, 187, 1);
+$opal: rgba(155, 193, 188, 1);
+$cadet-blue: rgba(92, 164, 169, 1);
+$alabaster: rgba(230, 235, 224, 1);
+$white: rgba(255, 255, 255, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #ed6a5aff, #ec9387);
+$gradient-bottom: linear-gradient(0deg, #f4f1bb,#e9e486);
