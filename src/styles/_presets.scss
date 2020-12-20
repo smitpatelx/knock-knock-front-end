@@ -1,0 +1,73 @@
+html, body{
+    width: 100%;
+    overflow-x: hidden;
+    display: block;
+    font-family: 'Inter var';
+    padding: 0;
+    margin: 0;
+    background: url('/assets/bg-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+@font-face {
+    font-family: 'Inter var';
+    src: url('https://static.smitpatelx.com/fonts/inter-var.woff2') format('woff2');
+    font-weight: 0 1000;
+    font-display: swap;
+}
+
+*{
+    transition: all 0.3s;
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    &:focus{
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    &:hover{
+        transition: all 0.3s;
+    }
+}
+
+.custom_scroll{
+    transition: all 0.3s ease-out;
+
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+        border-radius: 0px;
+        background-color: rgba(42, 42, 42, 0);
+    }
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: rgba(245, 245, 245, 0);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+        background-color: rgba(255, 255, 255, 0);
+        transition: all 0.3s ease-out;
+    }
+
+    &:hover{
+        transition: all 0.3s ease-out;
+        &::-webkit-scrollbar-thumb {
+            transition: all 0.3s ease-out;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+}
+
+.hover-outline {
+    box-shadow:  rgb(255, 255, 255) 0px 0px 0px 0px, rgba(129, 240, 255, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+
+    &:focus{
+        box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(129, 240, 255, 0.5) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+    }
+}
