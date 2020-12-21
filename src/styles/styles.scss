@@ -30,7 +30,7 @@
         align-content: center;
         background: transparent;
         border-radius: 0.4rem;
-        padding: 0 1rem;
+        padding: 0 0 0 1rem;
 
         & > div{
             display: inline-flex;
@@ -41,13 +41,13 @@
             background: transparent;
             padding: 1rem 0;
 
-            .create-new-btn{
+            #create-new-btn{
                 background: rgba(255, 255, 255, 0.2);
                 display: inline-flex;
                 flex-wrap: wrap;
                 justify-content: center;
                 align-items: center;
-                border: none;
+                border: 1px solid transparent;
                 padding: 0.8rem 1.4rem;
                 border-radius: 0.8rem;
                 color: rgb(226, 226, 226);
