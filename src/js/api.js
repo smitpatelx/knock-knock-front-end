@@ -6,8 +6,9 @@ const API = {
      */
     getRandomJoke() {
         return new Promise(async (Resolve, Reject)=>{
+            let jokeData
             try {
-                const jokeData = await fetch("http://localhost:8080/get-random/", {
+                jokeData = await fetch("https://knock.smitpatelx.com/get-random/", {
                     method: "GET"
                 });
             } catch(err) {
@@ -16,14 +17,13 @@ const API = {
 
             if(jokeData){
                 const jsonRes = await jokeData.json()
-                
                 if(jsonRes.errorCode==="ErrorJokeEmpty") {
                     Reject(jsonRes.errorMessage)
                 } else {
                     Resolve(jsonRes)
                 }
             } else {
-                Reject("Sorry we couldn't find any jokes! But you can add one. Type <b>\"Knock Kncok\"</b>")
+                Reject("jokeData undefined, please constact admin!")
             }
         })
     },
@@ -35,13 +35,19 @@ const API = {
      */
     saveJoke(data){
         return new Promise(async (Resolve, Reject)=>{
-            const jokeData = await fetch("http://localhost:8080/jokes/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+            let jokeData
+            try {
+                jokeData = await fetch("https://knock.smitpatelx.com/jokes/", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            } catch(err) {
+                Reject("API not reachable! Please contact admin")
+            }
+
             if(jokeData){
                 Resolve(jokeData.json())
             } else {
@@ -56,12 +62,18 @@ const API = {
      */
     deleteAllJokes(){
         return new Promise(async (Resolve, Reject)=>{
-            const jokeData = await fetch("http://localhost:8080/clear-all/", {
-                method: "DELETE",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
+            let jokeData
+            try {
+                jokeData = await fetch("https://knock.smitpatelx.com/clear-all/", {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+            } catch(err) {
+                Reject("API not reachable! Please contact admin")
+            }
+            
             if(jokeData){
                 const jsonRes = await jokeData.json()
                 
