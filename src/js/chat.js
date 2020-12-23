@@ -159,11 +159,11 @@ class Chat {
 
         this.currentSequence++
         if (this.currentSequence==(this.questions.length)){
-            // let text = '';
-            // this.formattedQuestion.map((q, index)=>{
-            //     text+="<b>User    : </b>"+this.answers[index]+"<br/>"
-            //     text+="<b>JokeBot : </b>"+q+"<br/>"
-            // })
+            let text = '';
+            this.formattedQuestion.map((q, index)=>{
+                text+="<b>User    : </b>"+this.answers[index]+"<br/>"
+                text+="<b>JokeBot : </b>"+q+"<br/>"
+            })
             // this.chatContent=text
             // const newChat = this.renderChatBubble("left");
             // this.mountChat(newChat);
