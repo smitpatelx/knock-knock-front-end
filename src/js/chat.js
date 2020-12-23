@@ -1,6 +1,8 @@
 import API from './api.js'
+import JokeBotStorage from './jokeBotStorage.js'
 class Chat {
     constructor(){
+        // Define class level variables
         this.chatContent = ''
         this.unfiltered = ''
         this.questions = [
@@ -12,29 +14,61 @@ class Chat {
         this.answers = []
         this.queStart=false
         this.currentSequence=0
+        this.jokeBotStorage = new JokeBotStorage();
     }
+    /* 
+     * @method - addNewChat
+     * @return - none
+     * @params - text: String
+     * @description - Create new chat elment based on user input
+     */
     addNewChat(text){
         this.sanitize(text)
-        const newChat = this.renderChatBubble();
+        const newChat = this.renderChatBubble("right", true);
         this.mountChat(newChat);
         this.resopnd()
     }
-    renderChatBubble(className = "right"){
+    /* 
+     * @method - renderChatBubble
+     * @return - element
+     * @params - className: String, store: Boolean
+     * @description - Create chat bubble element
+     */
+    renderChatBubble(className = "right", store = true){
         let bubble = document.createElement('div');
         bubble.innerHTML=this.chatContent;
         bubble.className=className;
+
+        if(store){
+            // Store in local storage
+            const author = className==="right" ? "User" : "Bot"
+            this.jokeBotStorage.create({by: author, content: this.chatContent, date: new Date().toISOString()})
+        }
+
         return bubble;
     }
+    /* 
+     * @method - mountChat
+     * @return - none
+     * @params - chatInstance: Object 
+     * @description - Mount chat element to div
+     */
     mountChat(chatInstance){
         const chatContainer = document.querySelector(".chat-bubble-container");
         chatContainer.appendChild(chatInstance)
         // Scroll to bottom of the chat container
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
+    /* 
+     * @method - resopnd
+     * @return - none 
+     * @description - Respond to user input
+     */
     async resopnd(){
         const tellMeJoke = new RegExp(/\btell\b/gm);
         const startSequence = new RegExp(/\bknock knock\b/gm);
-        const showAllCommands = new RegExp(/^\$show-all-cmd\b/gm);
+        const showAllCommands = new RegExp(/^\$c\b/gm);
+        const clearLocalStorage = new RegExp(/^\$cls\b/gm);
         const deleteAllJoke = new RegExp(/^\$delete-all\b/gm);
         const command = this.unfiltered.toString().toLowerCase();
 
@@ -43,17 +77,17 @@ class Chat {
             try {
                 const data = await API.getRandomJoke();
                 this.chatContent = data.joke_content;
-                const newChat = this.renderChatBubble("left");
+                const newChat = this.renderChatBubble("left", true);
                 this.mountChat(newChat);
             } catch(err) {
-                this.chatContent = "Sorry we couldn't find any jokes! But you can add one. Type <b>\"Knock Kncok\"</b>";
-                const newChat = this.renderChatBubble("left");
+                this.chatContent = err;
+                const newChat = this.renderChatBubble("left", true);
                 this.mountChat(newChat);
             }
         } else if (showAllCommands.exec(command) && this.queStart===false) {
             // Show list of all commands
-            this.chatContent = "<b>tell me a joke</b> : Tells you a random joke from our API.<br/><b>knock knock</b> : Ask your input to create a new joke.<br/><b>$clear-all</b> : Clear all chat from index DB.<br/><b>$delete-all</b> : Delete all jokes from our API.";
-            const newChat = this.renderChatBubble("left");
+            this.chatContent = "<b>tell me a joke</b> : Tells you a random joke from our API.<br/><b>knock knock</b> : Ask your input to create a new joke.<br/><b>$clear-all</b> : Clear all chat from index DB.<br/><b>$delete-all</b> : Delete all jokes from our API.<br/><b>$cls</b> : Clear Local Storage";
+            const newChat = this.renderChatBubble("left", true);
             this.mountChat(newChat);
         } else if (deleteAllJoke.exec(command) && this.queStart===false) {
             // Deleting all jokes
@@ -67,6 +101,10 @@ class Chat {
                 const newChat = this.renderChatBubble("left");
                 this.mountChat(newChat);
             }
+        } else if (clearLocalStorage.exec(command) && this.queStart===false) {
+            // Clear Local Storage
+            await this.jokeBotStorage.deleteAll();
+            window.location.reload();
         } else if (startSequence.exec(command) && this.queStart===false) {
             // Ask for a new joke
             this.queStart=true
@@ -78,6 +116,12 @@ class Chat {
             this.initializeJokeSeq();
         }
     }
+     /* 
+     * @method - sanitize
+     * @return - none
+     * @params - characters: String
+     * @description - Sanitize user input
+     */
     sanitize(characters){
         this.unfiltered = characters;
         this.chatContent = characters
@@ -87,12 +131,22 @@ class Chat {
             .replace(/'/g, "&#039;")
             .replace(/>/g, "&gt;");
     }
+    /* 
+     * @method - resetSequence
+     * @return - none
+     * @description - Reset new joke sequence
+     */
     resetSequence(){
         this.formattedQuestion=[]
         this.queStart=false;
         this.answers=[]
         this.currentSequence=0
     }
+    /* 
+     * @method - initializeJokeSeq
+     * @return - none
+     * @description - Start new joke sequence
+     */
     async initializeJokeSeq(){
         this.answers.push(this.chatContent);
         if(this.currentSequence===1){
@@ -127,6 +181,20 @@ class Chat {
 
             this.resetSequence();
         }
+    }
+    /* 
+     * @method - renderFromStorage
+     * @return - element
+     * @description - Same as renderChatBubble
+     */
+    getDataFromLocalStorage(){
+        const data = this.jokeBotStorage.getAll()
+        data.forEach(element => {
+            this.chatContent = element.content
+            const chatClassName = element.by === "User" ? "right" : "left"
+            const newChat = this.renderChatBubble(chatClassName, false);
+            this.mountChat(newChat);
+        });
     }
 }
 

@@ -1,21 +1,19 @@
 const API = {
-    getJoke() {
-        return new Promise(async (Resolve, Reject)=>{
-            const jokeData = await fetch("http://localhost:8080/jokes", {
-                method: "GET"
-            });
-            if(jokeData && jokeData.json().length > 0){
-                Resolve(jokeData.json())
-            } else {
-                Reject("No joke found")
-            }
-        })
-    },
+    /* 
+     * @method - getRandomJoke
+     * @return - Promise
+     * @description - Query random joke from our API
+     */
     getRandomJoke() {
         return new Promise(async (Resolve, Reject)=>{
-            const jokeData = await fetch("http://localhost:8080/get-random/", {
-                method: "GET"
-            });
+            try {
+                const jokeData = await fetch("http://localhost:8080/get-random/", {
+                    method: "GET"
+                });
+            } catch(err) {
+                Reject("API not reachable! Please contact admin")
+            }
+
             if(jokeData){
                 const jsonRes = await jokeData.json()
                 
@@ -25,10 +23,16 @@ const API = {
                     Resolve(jsonRes)
                 }
             } else {
-                Reject("No joke found")
+                Reject("Sorry we couldn't find any jokes! But you can add one. Type <b>\"Knock Kncok\"</b>")
             }
         })
     },
+    /* 
+     * @method - saveJoke
+     * @return - Promise
+     * @params - data: Object
+     * @description - Save new joke to our API
+     */
     saveJoke(data){
         return new Promise(async (Resolve, Reject)=>{
             const jokeData = await fetch("http://localhost:8080/jokes/", {
@@ -45,6 +49,11 @@ const API = {
             }
         })
     },
+    /* 
+     * @method - deleteAllJokes
+     * @return - Promise
+     * @description - Delete all jokes from API
+     */
     deleteAllJokes(){
         return new Promise(async (Resolve, Reject)=>{
             const jokeData = await fetch("http://localhost:8080/clear-all/", {
