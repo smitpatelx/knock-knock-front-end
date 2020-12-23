@@ -118,8 +118,7 @@ class Chat {
     }
      /* 
      * @method - sanitize
-     * @return - none
-     * @params - characters: String
+     * @return - none who?ng
      * @description - Sanitize user input
      */
     sanitize(characters){
@@ -160,14 +159,14 @@ class Chat {
 
         this.currentSequence++
         if (this.currentSequence==(this.questions.length)){
-            let text = '';
-            this.formattedQuestion.map((q, index)=>{
-                text+="<b>User    : </b>"+this.answers[index]+"<br/>"
-                text+="<b>JokeBot : </b>"+q+"<br/>"
-            })
-            this.chatContent=text
-            const newChat = this.renderChatBubble("left");
-            this.mountChat(newChat);
+            // let text = '';
+            // this.formattedQuestion.map((q, index)=>{
+            //     text+="<b>User    : </b>"+this.answers[index]+"<br/>"
+            //     text+="<b>JokeBot : </b>"+q+"<br/>"
+            // })
+            // this.chatContent=text
+            // const newChat = this.renderChatBubble("left");
+            // this.mountChat(newChat);
 
             const jokeFinalData = {joke_content: text, pub_date: new Date().toISOString()}
 
