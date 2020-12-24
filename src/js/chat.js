@@ -86,7 +86,7 @@ class Chat {
             }
         } else if (showAllCommands.exec(command) && this.queStart===false) {
             // Show list of all commands
-            this.chatContent = "<b>tell me a joke</b> : Tells you a random joke from our API.<br/><b>knock knock</b> : Ask your input to create a new joke.<br/><b>$clear-all</b> : Clear all chat from index DB.<br/><b>$delete-all</b> : Delete all jokes from our API.<br/><b>$cls</b> : Clear Local Storage";
+            this.chatContent = "<b>tell me a joke</b> : Tells you a random joke from our API.<br/><b>knock knock</b> : Ask your input to create a new joke.<br/><b>$delete-all</b> : Delete all jokes from our API.<br/><b>$cls</b> : Clear Local Storage";
             const newChat = this.renderChatBubble("left", true);
             this.mountChat(newChat);
         } else if (deleteAllJoke.exec(command) && this.queStart===false) {
