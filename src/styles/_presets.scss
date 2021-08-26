@@ -5,10 +5,14 @@ html, body{
     font-family: 'Inter var';
     padding: 0;
     margin: 0;
-    background: url('/assets/bg-1.jpg');
+}
+
+body {
+    background: url('/assets/bg-3.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    backdrop-filter: blur(20px);
 }
 
 @font-face {

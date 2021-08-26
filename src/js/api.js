@@ -1,4 +1,5 @@
 const API = {
+    api: 'http://knock.local/',
     /* 
      * @method - getRandomJoke
      * @return - Promise
@@ -8,7 +9,7 @@ const API = {
         return new Promise(async (Resolve, Reject)=>{
             let jokeData
             try {
-                jokeData = await fetch("https://knock.smitpatelx.com/get-random/", {
+                jokeData = await fetch(this.api+"get-random/", {
                     method: "GET"
                 });
             } catch(err) {
@@ -37,7 +38,7 @@ const API = {
         return new Promise(async (Resolve, Reject)=>{
             let jokeData
             try {
-                jokeData = await fetch("https://knock.smitpatelx.com/jokes/", {
+                jokeData = await fetch(this.api+"jokes/", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -64,7 +65,7 @@ const API = {
         return new Promise(async (Resolve, Reject)=>{
             let jokeData
             try {
-                jokeData = await fetch("https://knock.smitpatelx.com/clear-all/", {
+                jokeData = await fetch(this.api+"clear-all/", {
                     method: "DELETE",
                     headers: {
                         'Content-Type': 'application/json'
