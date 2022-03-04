@@ -1,5 +1,5 @@
 const API = {
-    api: 'http://knock.local/',
+    api: 'https://knock.smitpatelx.com/',
     /* 
      * @method - getRandomJoke
      * @return - Promise
