@@ -87,22 +87,33 @@
         align-content: center;
         border-radius: 0.4rem;
         margin-top: 0.5rem;
-        
-        .chat-bubble-container{
+
+        .chat-container {
             width: 100%;
             min-height: 27rem;
             max-height: 27rem;
-            padding: 0.4rem;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            margin: 0;
+            padding: 0 1rem 0 0;
             background: rgba(255, 255, 255, 0.1);
             border: 3px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(2px);
             border-radius: 1rem;
+            @extend .custom_scroll;
+        }
+        
+        .chat-bubble-container{
+            width: 100%;
+            // min-height: 27rem;
+            padding: 0.4rem;
             position: relative;
             display: flex;
+            align-content: flex-start;
             flex-direction: column;
             justify-content: end;
-            overflow: hidden scroll;
-            @extend .custom_scroll;
+            overflow-x: hidden;
+            overflow-y: hidden;
 
             & > div{
                 width: 70%;
@@ -110,7 +121,6 @@
                 padding: 0.6rem 0.8rem;
                 font-size: 1rem;
                 line-height: 1.2rem;
-                // box-shadow: 0px 10px 20px -15px rgba(18, 53, 209, 0.918);
             }
 
             .right {

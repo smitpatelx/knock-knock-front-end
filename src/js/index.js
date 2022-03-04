@@ -5,12 +5,17 @@ window.addEventListener('DOMContentLoaded', () => {
     const inputBox = document.getElementById("input-box-main")
     const sendBtn = document.getElementById("btn-send")
     const createNewBtn = document.getElementById("create-new-btn")
+    const chatContainer = document.getElementsByClassName("chat-container")[0]
 
     // Get chats from localStorage and render it
     chat.getDataFromLocalStorage()
 
     // Focus on input, to improve UX
+    // Scroll to bottom on load
     window.setTimeout(function (){
+        if (chatContainer?.scrollTo) {
+            chatContainer.scrollTo(0, chatContainer.scrollHeight)
+        }
         inputBox.focus();
     })
 
