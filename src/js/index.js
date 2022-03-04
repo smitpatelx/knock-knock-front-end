@@ -27,6 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if(val.toString().trim().length > 1) {
                 chat.addNewChat(val)
                 e.target.value = ""
+                chatContainer.scrollTo(0, chatContainer.scrollHeight)
             }
         } else if(e.key==="Escape") {
             e.target.value = ""
